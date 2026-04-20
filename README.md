@@ -1,14 +1,21 @@
 🐾 Wildlife Object Detection: Snapshot Serengeti Pipeline
 
+# 🐾 Wildlife Detection Dashboard
+
+**Live Demo:** [Click here to view the app](https://wildlife-detection-2zsvbkwbbjmirc5aimtstq.streamlit.app/)
+
 ## 🚀 Project Overview
-This project develops a lightweight, edge-ready object detection model designed to identify wildlife in camera-trap imagery. By leveraging the **YOLOv8** architecture, this pipeline provides real-time identification of species such as Zebras, Lions, and Elephants. 
+
+This project develops a lightweight, edge-ready object detection model designed to identify wildlife in camera-trap imagery. By leveraging the **YOLOv8** architecture, this pipeline provides real-time identification of species such as Zebras, Lions, and Elephants.
 
 This project serves as a technical case study in building a robust Machine Learning pipeline from scratch, even when faced with significant infrastructure and data access challenges.
 
 ## 🛠️ Installation & Setup
+
 To replicate this environment and run the detection pipeline locally:
 
 1. **Clone the repository:**
+
    ```bash
    git clone [https://github.com/ggainesjr3/wildlife-detection.git](https://github.com/ggainesjr3/wildlife-detection.git)
    cd wildlife-detection
@@ -34,6 +41,7 @@ To replicate this environment and run the detection pipeline locally:
     Bash
 
     streamlit run app.py
+   ```
 
 🏗️ Data Engineering & The "Bridge" Strategy
 
