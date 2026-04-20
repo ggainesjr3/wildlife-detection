@@ -1,0 +1,4 @@
+capture_id,species,x_min,y_min,width,height
+zebra_1,zebra,50,50,100,100
+lion_1,lion,150,100,80,80
+elephant_1,elephant,200,50,150,200

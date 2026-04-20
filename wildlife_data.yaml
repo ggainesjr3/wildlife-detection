@@ -1,0 +1,9 @@
+path: /home/gary/wildlife-detection/data  # root dir
+train: images  # train images (relative to 'path')
+val: images    # val images (relative to 'path') - using same for mock
+
+# Classes
+names:
+  0: zebra
+  1: lion
+  2: elephant
