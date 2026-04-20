@@ -1,24 +1,10 @@
-import subprocess
-import sys
-
-# Emergency fix for missing system libraries on Streamlit Cloud
-try:
-    import cv2
-except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "opencv-python-headless"])
-    import cv2
-
-import streamlit as st
-from ultralytics import YOLO
-# ... (rest of your code)import os
-os.environ["LD_PRELOAD"] = ""
+import os
 import streamlit as st
 from ultralytics import YOLO
 from PIL import Image
-import os
 from collections import Counter
 
-# 1. Page Configuration & Theme
+# 1. Page Configuration
 st.set_page_config(
     page_title="Wildlife Bouncer | Gary Gaines", 
     page_icon="🐾",
@@ -32,15 +18,12 @@ with st.sidebar:
     st.markdown("""
     **Developer:** Gary Edward Gaines, Jr.  
     **Model:** YOLOv8 Nano  
-    **Target:** Serengeti Wildlife  
     ---
     [GitHub Profile](https://github.com/ggainesjr3)  
     """)
-    st.info("This model is optimized for high-speed inference on edge hardware.")
 
 # 3. Main Interface
 st.title("🐾 Wildlife Detection Dashboard")
-st.write("Upload a snapshot from the field to perform automated species identification.")
 
 MODEL_PATH = "best.pt"
 
@@ -52,43 +35,30 @@ else:
         return YOLO(MODEL_PATH)
 
     model = load_model()
-
     uploaded_file = st.file_uploader("Upload a Serengeti snapshot...", type=["jpg", "jpeg", "png"])
 
     if uploaded_file:
         img = Image.open(uploaded_file)
-        
-        # Create Two Columns
         col1, col2 = st.columns(2)
         
         with col1:
             st.subheader("Original Image")
             st.image(img, use_container_width=True)
             
-        if st.button("🔍 Run Machine Learning Inspection", use_container_width=True):
-            with st.spinner("Analyzing..."):
-                results = model(img)
-                res_plotted = results[0].plot()
-                
-                with col2:
-                    st.subheader("Detection Results")
-                    st.image(res_plotted, use_container_width=True)
-                
-                # 4. Summary Logic
-                st.write("---")
-                st.subheader("📊 Species Tally")
-                
-                # Extract labels found
-                labels_found = [model.names[int(box.cls[0])] for result in results for box in result.boxes]
-                counts = Counter(labels_found)
-                
-                if counts:
-                    # Create nice metrics (boxes)
-                    cols = st.columns(len(counts))
-                    for i, (species, count) in enumerate(counts.items()):
-                        cols[i].metric(label=species.capitalize(), value=count)
-                else:
-                    st.warning("No animals identified with high enough confidence.")
-
-st.markdown("---")
-st.caption("Technical Case Study by Gary Edward Gaines, Jr. | Built with YOLOv8 & Streamlit")
+        if st.button("🔍 Run ML Inspection", use_container_width=True):
+            results = model(img)
+            res_plotted = results[0].plot()
+            
+            with col2:
+                st.subheader("Detection Results")
+                st.image(res_plotted, use_container_width=True)
+            
+            st.write("---")
+            st.subheader("📊 Species Tally")
+            labels_found = [model.names[int(box.cls[0])] for result in results for box in result.boxes]
+            counts = Counter(labels_found)
+            
+            if counts:
+                cols = st.columns(len(counts))
+                for i, (species, count) in enumerate(counts.items()):
+                    cols[i].metric(label=species.capitalize(), value=count)
