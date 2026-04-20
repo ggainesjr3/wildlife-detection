@@ -72,7 +72,7 @@ else:
                     # Create nice metrics (boxes)
                     cols = st.columns(len(counts))
                     for i, (species, count) in enumerate(counts.items()):
-                        cols[i].metric(label=species, value=count)
+                        cols[i].metric(label=species.capitalize(), value=count)
                 else:
                     st.warning("No animals identified with high enough confidence.")
 
