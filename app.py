@@ -1,3 +1,17 @@
+import subprocess
+import sys
+
+# Emergency fix for missing system libraries on Streamlit Cloud
+try:
+    import cv2
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "opencv-python-headless"])
+    import cv2
+
+import streamlit as st
+from ultralytics import YOLO
+# ... (rest of your code)import os
+os.environ["LD_PRELOAD"] = ""
 import streamlit as st
 from ultralytics import YOLO
 from PIL import Image
