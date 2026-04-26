@@ -1,0 +1,11 @@
+path: /home/gary/wildlife-detection/data
+train: images/train
+val: images/val
+
+# Realignment based on zebra_1.txt (Class 0)
+names:
+  0: zebra
+  1: elephant
+  2: lion
+  3: giraffe
+  4: cheetah
